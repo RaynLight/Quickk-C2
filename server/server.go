@@ -16,7 +16,8 @@ func main() {
 		"agents": func(args []string) { go list_agents_cli(agentManager.ListAgents()) },
 		"rm":     func(args []string) { agentManager.RemoveAgent(args[1]) },
 
-		"help": func(args []string) { Get_Help() },
+		"help":    func(args []string) { Get_Help() },
+		"addtask": func(args []string) { HandleAddTask(args, agentManager.ListAgents()) },
 	}
 
 	for {

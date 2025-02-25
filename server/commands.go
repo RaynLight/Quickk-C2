@@ -28,8 +28,7 @@ func list_agents_cli(agents []*Agent) {
 	}
 }
 
-// formatTimeAgo converts time duration into a human-readable format
-func formatTimeAgo(duration time.Duration) string {
+func formatTimeAgo(duration time.Duration) string { // converts time duration into a human-readable format
 	seconds := int(duration.Seconds())
 
 	switch {
@@ -44,7 +43,34 @@ func formatTimeAgo(duration time.Duration) string {
 	}
 }
 
-func Get_Help() {
+func HandleAddTask(command []string, agents []*Agent) {
+	if len(command) < 3 {
+		fmt.Println("[-] Usage: addtask <agent_id> <task>")
+		return
+	}
+
+	agentID := command[1]
+	task := ""
+	if len(command) > 3 {
+		task = fmt.Sprintf("%s", command[2:])
+	} else {
+		task = command[2]
+	}
+	addTaskToAgent(agentID, task, agents)
+}
+
+func addTaskToAgent(agentID string, task string, agents []*Agent) {
+	for _, agent := range agents {
+		if agent.ID == agentID {
+			agent.Tasks = append(agent.Tasks, task)
+			fmt.Printf("[+] Task \"%s\" has been added to Agent ID: %s\n", task, agentID)
+			return
+		}
+	}
+	fmt.Printf("[-] Agent with ID %s not found.\n", agentID)
+}
+
+func Get_Help() { // Help command
 	fmt.Println("Commands:")
 	fmt.Println("\n  -- Agent Management -- ")
 	fmt.Println("  agents 		- List all agents")

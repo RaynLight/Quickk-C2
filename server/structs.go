@@ -14,11 +14,13 @@ type C2Server struct {
 
 // Agent represents a connected C2 client
 type Agent struct {
-	ID       string    `json:"id"`
-	Hostname string    `json:"hostname"`
-	OS       string    `json:"os"`
-	IP       net.IP    `json:"ip"`
-	LastSeen time.Time `json:"last_seen"`
+	ID        string     `json:"id"`
+	Hostname  string     `json:"hostname"`
+	OS        string     `json:"os"`
+	IP        net.IP     `json:"ip"`
+	LastSeen  time.Time  `json:"last_seen"`
+	Tasks     []string   `json:"tasks"`
+	TaskMutex sync.Mutex `json:"-"`
 }
 
 type AgentManager struct {

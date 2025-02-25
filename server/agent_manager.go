@@ -43,3 +43,20 @@ func (m *AgentManager) RemoveAgent(id string) {
 	delete(m.agents, id)
 	fmt.Printf("[-] Agent %s removed.\n", id)
 }
+
+// GetNextTaskForAgent provides the next task for the given agent ID.
+func (m *AgentManager) GetNextTaskForAgent(agentID string) (string, bool) {
+	m.mu.Lock()
+	defer m.mu.Unlock()
+
+	agent, exists := m.agents[agentID]
+	if !exists || len(agent.Tasks) == 0 {
+		return "", false
+	}
+
+	// Retrieve and remove the next task (FIFO)
+	nextTask := agent.Tasks[0]
+	agent.Tasks = agent.Tasks[1:]
+
+	return nextTask, true
+}
