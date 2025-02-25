@@ -1,7 +1,6 @@
 package main
 
 import (
-	"Deanscup/server"
 	"bufio"
 	"fmt"
 	"os"
@@ -12,8 +11,10 @@ func main() {
 	reader := bufio.NewReader(os.Stdin)
 
 	commands := map[string]func([]string){
-		"exit": func(args []string) { Server.Exit_Server() },
-		"quic": func(args []string) { go Server.StartQuic(args) },
+		"exit":   func(args []string) { Exit_Server() },
+		"quic":   func(args []string) { go StartQuic(args) },
+		"agents": func(args []string) { go list_agents_cli(agentManager.ListAgents()) },
+		"rm":     func(args []string) { agentManager.RemoveAgent(args[1]) },
 	}
 
 	for {
