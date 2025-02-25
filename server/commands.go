@@ -43,3 +43,24 @@ func formatTimeAgo(duration time.Duration) string {
 		return fmt.Sprintf("%d days ago", seconds/86400)
 	}
 }
+
+func Get_Help() {
+	fmt.Println("Commands:")
+	fmt.Println("\n  -- Agent Management -- ")
+	fmt.Println("  agents 		- List all agents")
+	fmt.Println("  rm <agent_id> 	- Removes an agent by ID")
+	fmt.Println("  use <agent_id> 	- Use an agent by ID ")
+
+	fmt.Println("\n  -- Agent Commands -- ")
+	fmt.Println("  whoami 			- Display the user your agent us running under")
+	fmt.Println("  hostname 		- Displays hostname of the system")
+	fmt.Println("  ps 				- Display running processes")
+	fmt.Println("  netstat 			- Display network connections")
+	fmt.Println("  ls 				- List files in the current directory")
+	fmt.Println("  cd <directory> 	- Change directory")
+	fmt.Println("  cat <file> 		- Display the contents of a file")
+
+	fmt.Println("\n  -- Misc -- ")
+	fmt.Println("  help 			- Display this help message")
+	fmt.Println("  exit 			- Exit the server")
+}

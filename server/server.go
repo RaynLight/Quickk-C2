@@ -15,6 +15,8 @@ func main() {
 		"quic":   func(args []string) { go StartQuic(args) },
 		"agents": func(args []string) { go list_agents_cli(agentManager.ListAgents()) },
 		"rm":     func(args []string) { agentManager.RemoveAgent(args[1]) },
+
+		"help": func(args []string) { Get_Help() },
 	}
 
 	for {

