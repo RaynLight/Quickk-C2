@@ -67,6 +67,5 @@ func agent_checkin(w http.ResponseWriter, r *http.Request) {
 		"task": task,
 	}
 	json.NewEncoder(w).Encode(response)
-
-	fmt.Fprintf(w, "%s", agent_id)
+	
 }

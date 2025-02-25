@@ -60,3 +60,14 @@ func (m *AgentManager) GetNextTaskForAgent(agentID string) (string, bool) {
 
 	return nextTask, true
 }
+
+func addTaskToAgent(agentID string, task string, agents []*Agent) {
+	for _, agent := range agents {
+		if agent.ID == agentID {
+			agent.Tasks = append(agent.Tasks, task)
+			fmt.Printf("[+] Task \"%s\" has been added to Agent ID: %s\n", task, agentID)
+			return
+		}
+	}
+	fmt.Printf("[-] Agent with ID %s not found.\n", agentID)
+}

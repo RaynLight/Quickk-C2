@@ -59,30 +59,20 @@ func HandleAddTask(command []string, agents []*Agent) {
 	addTaskToAgent(agentID, task, agents)
 }
 
-func addTaskToAgent(agentID string, task string, agents []*Agent) {
-	for _, agent := range agents {
-		if agent.ID == agentID {
-			agent.Tasks = append(agent.Tasks, task)
-			fmt.Printf("[+] Task \"%s\" has been added to Agent ID: %s\n", task, agentID)
-			return
-		}
-	}
-	fmt.Printf("[-] Agent with ID %s not found.\n", agentID)
-}
-
 func Get_Help() { // Help command
 	fmt.Println("Commands:")
 	fmt.Println("\n  -- Agent Management -- ")
-	fmt.Println("  agents 		- List all agents")
-	fmt.Println("  rm <agent_id> 	- Removes an agent by ID")
+	fmt.Println("  agents 		- List all agents")              // working
+	fmt.Println("  rm <agent_id> 	- Removes an agent by ID") // working
 	fmt.Println("  use <agent_id> 	- Use an agent by ID ")
+	fmt.Println("  addtask <agent_id> <task> - Add a task to an agent") // working
 
 	fmt.Println("\n  -- Agent Commands -- ")
-	fmt.Println("  whoami 			- Display the user your agent us running under")
+	fmt.Println("  whoami 		- Display the user your agent us running under")
 	fmt.Println("  hostname 		- Displays hostname of the system")
-	fmt.Println("  ps 				- Display running processes")
-	fmt.Println("  netstat 			- Display network connections")
-	fmt.Println("  ls 				- List files in the current directory")
+	fmt.Println("  ps 			- Display running processes")
+	fmt.Println("  netstat 		- Display network connections")
+	fmt.Println("  ls 			- List files in the current directory")
 	fmt.Println("  cd <directory> 	- Change directory")
 	fmt.Println("  cat <file> 		- Display the contents of a file")
 
