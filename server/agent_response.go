@@ -47,7 +47,11 @@ func agent_response(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if response.Output == "" {
+		fmt.Println("[-] Error: Empty response received.")
+	}
+	
 	// Log the received response
 	fmt.Printf("\n%s\n", response.Output)
-	fmt.Printf(">> ")
+	PrintCursor()
 }

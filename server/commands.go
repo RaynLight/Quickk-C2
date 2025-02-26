@@ -65,6 +65,7 @@ func Get_Help() { // Help command
 	fmt.Println("  agents 		- List all agents")              // working
 	fmt.Println("  rm <agent_id> 	- Removes an agent by ID") // working
 	fmt.Println("  use <agent_id> 	- Use an agent by ID ")
+	fmt.Println("  background       - Background your agent")
 	fmt.Println("  addtask <agent_id> <task> - Add a task to an agent") // working
 
 	fmt.Println("\n  -- Agent Commands -- ")

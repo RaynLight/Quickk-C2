@@ -14,7 +14,7 @@ func (m *AgentManager) AddAgent(agent *Agent) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 	m.agents[agent.ID] = agent
-	fmt.Printf("[+] Agent Registered: %+v\n", agent)
+	// fmt.Printf("[+] Agent Registered: %+v\n", agent)
 }
 
 // GetAgent retrieves an agent by ID
