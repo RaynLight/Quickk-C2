@@ -1,4 +1,4 @@
-package main
+package includes
 
 import (
 	"encoding/json"
@@ -29,7 +29,7 @@ func first_checkin(w http.ResponseWriter, r *http.Request) *Agent {
 		Tasks:    []string{},
 	}
 
-	agentManager.AddAgent(agent)
+	Manager.AddAgent(agent)
 
 	json.NewEncoder(w).Encode(response)
 
@@ -46,7 +46,7 @@ func agent_checkin(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Modify agents Last Check in Time
-	agent, exists := agentManager.GetAgent(agent_id)
+	agent, exists := Manager.GetAgent(agent_id)
 	if !exists {
 		http.Error(w, "Agent not found", http.StatusNotFound)
 		return
@@ -54,7 +54,7 @@ func agent_checkin(w http.ResponseWriter, r *http.Request) {
 	agent.LastSeen = time.Now()
 
 	// Process agent tasking
-	task, exists := agentManager.GetNextTaskForAgent(agent_id)
+	task, exists := Manager.GetNextTaskForAgent(agent_id)
 
 	if !exists {
 

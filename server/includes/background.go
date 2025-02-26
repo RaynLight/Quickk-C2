@@ -1,5 +1,5 @@
-package main
+package includes
 
-func background() {
+func Background() {
 	current_agent = ""
 }

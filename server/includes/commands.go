@@ -1,4 +1,4 @@
-package main
+package includes
 
 import (
 	"fmt"
@@ -11,7 +11,7 @@ func Exit_Server() {
 	os.Exit(0)
 }
 
-func list_agents_cli(agents []*Agent) {
+func List_agents_cli(agents []*Agent) {
 	if len(agents) == 0 {
 		fmt.Println("[-] No agents registered.")
 		return

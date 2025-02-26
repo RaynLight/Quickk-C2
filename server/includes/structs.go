@@ -1,4 +1,4 @@
-package main
+package includes
 
 import (
 	"net"
@@ -21,9 +21,4 @@ type Agent struct {
 	LastSeen  time.Time  `json:"last_seen"`
 	Tasks     []string   `json:"tasks"`
 	TaskMutex sync.Mutex `json:"-"`
-}
-
-type AgentManager struct {
-	agents map[string]*Agent
-	mu     sync.Mutex
 }

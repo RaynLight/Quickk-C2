@@ -1,6 +1,14 @@
-package main
+package includes
 
-import "fmt"
+import (
+	"fmt"
+	"sync"
+)
+
+type AgentManager struct {
+	mu     sync.Mutex
+	agents map[string]*Agent
+}
 
 // initializes the agent manager
 func NewAgentManager() *AgentManager {

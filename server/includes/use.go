@@ -1,4 +1,4 @@
-package main
+package includes
 
 import "fmt"
 
@@ -12,7 +12,7 @@ func Use(args []string) {
 	}
 
 	agent_id := args[1]
-	if _, exists := agentManager.GetAgent(agent_id); exists {
+	if _, exists := Manager.GetAgent(agent_id); exists {
 		current_agent = agent_id
 		fmt.Printf("[+] Now using agent %s\n", agent_id)
 	} else {
