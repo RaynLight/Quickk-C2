@@ -16,12 +16,14 @@ func main() {
 		"agents": func(args []string) { go list_agents_cli(agentManager.ListAgents()) },
 		"rm":     func(args []string) { agentManager.RemoveAgent(args[1]) },
 
-		"help":    func(args []string) { Get_Help() },
-		"addtask": func(args []string) { HandleAddTask(args, agentManager.ListAgents()) },
+		"help":       func(args []string) { Get_Help() },
+		"addtask":    func(args []string) { HandleAddTask(args, agentManager.ListAgents()) },
+		"use":        func(args []string) { Use(args) },
+		"background": func(args []string) { background() },
 	}
 
 	for {
-		fmt.Printf(">> ")
+		PrintCursor()
 		input, _ := reader.ReadString('\n')
 		input = strings.TrimSpace(input)
 		words := strings.Fields(input)
@@ -31,6 +33,11 @@ func main() {
 			continue
 		}
 
+		if GetCurrentAgent() != "" && words[0] != "use" && words[0] != "exit" && words[0] != "background" {
+			task := strings.Join(words, " ")
+			HandleAddTask([]string{"addtask", GetCurrentAgent(), task}, agentManager.ListAgents())
+			continue
+		}
 		if cmd, exists := commands[strings.ToLower(words[0])]; exists {
 			cmd(words)
 		} else {
