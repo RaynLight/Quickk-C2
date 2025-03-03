@@ -13,3 +13,16 @@ openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
 
 go run .
 ```
+### Client Setup
+Modify the IP address on line 10 of `client.go`
+```
+ip := "127.0.0.1"
+```
+Compilation for Linux
+```
+go build .
+```
+Compilation for Windows
+```
+GOOS=windows GOARCH=amd64 go build -o client.exe .
+```
